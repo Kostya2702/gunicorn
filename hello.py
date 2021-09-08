@@ -1,11 +1,10 @@
 # WSGI APP for stepik
-import re
 
 
 def wsgi_app(environ, start_responce):
     start_responce('200 OK', [('Content-type', 'text/plain')])
     pattern = r'(?:\w\=\d)+'
-    body = [bytes(f'{el}\n', 'ascii') for el in re.findall(pattern, environ)]
+    body = [bytes(i + '\n', 'ascii') for i in environ['QUERY_STRING'].split('&')]
     return body
 
 
